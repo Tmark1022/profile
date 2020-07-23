@@ -31,6 +31,8 @@ Plugin 'scrooloose/nerdtree'
 Plugin 'kien/ctrlp.vim'
 Plugin 'vim-scripts/taglist.vim'
 
+Plugin 'SirVer/ultisnips'
+Plugin 'honza/vim-snippets'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -55,7 +57,9 @@ filetype plugin indent on    " required
 
 " **************************************** YouCompleteMe ****************************************
 " 全局配置 
-let g:ycm_global_ycm_extra_conf = '~/.vim/ycmConfig/.ycm_extra_conf_global.py' 		
+"let g:ycm_global_ycm_extra_conf = '~/.vim/ycmConfig/.ycm_extra_conf_global.py'
+
+
 
 " 自动补全配置  
 set completeopt=longest,menu    				"让Vim的补全菜单行为与一般IDE一致(参考VimTip1228)  
@@ -73,16 +77,17 @@ inoremap <expr> <CR>       pumvisible() ? "\<C-y>" : "\<CR>"    "回车即选中
 let g:ycm_key_list_select_completion = ['<Down>']  
 "let g:ycm_key_list_previous_completion=['<c-p>']  
 let g:ycm_key_list_previous_completion = ['<Up>']  
-let g:ycm_confirm_extra_conf=0 				"关闭加载.ycm_extra_conf.py提示  
+"let g:ycm_confirm_extra_conf=0 				"关闭加载.ycm_extra_conf.py提示  
   
 let g:ycm_collect_identifiers_from_tags_files=1 	" 开启 YCM 基于标签引擎  
 let g:ycm_min_num_of_chars_for_completion=2 		" 从第2个键入字符就开始罗列匹配项  
 let g:ycm_cache_omnifunc=0  				" 禁止缓存匹配项,每次都重新生成匹配项  
 let g:ycm_seed_identifiers_with_syntax=1    		" 语法关键字补全  
-nnoremap <F6> :YcmForceCompileAndDiagnostics<CR>    	"force recompile with syntastic  
+nnoremap <F6> :YcmDiags<CR>				"diagnose 窗口
+nnoremap <F7> :YcmForceCompileAndDiagnostics<CR>    	"force recompile with syntastic  
 nnoremap <F8> :YcmDebugInfo<CR>				"show debug message
-"nnoremap <leader>lo :lopen<CR> 			"open locationlist  
-"nnoremap <leader>lc :lclose<CR>    			"close locationlist  
+nnoremap <leader>lo :lopen<CR> 			"open locationlist  
+nnoremap <leader>lc :lclose<CR>    			"close locationlist  
 inoremap <leader><leader> <C-x><C-o>  
 "在注释输入中也能补全  
 let g:ycm_complete_in_comments = 1  
@@ -96,6 +101,22 @@ let g:ycm_show_diagnostics_ui = 0	" lpc代码编写， 默认关闭代码诊断u
 
 " 手动调用补全, 默认<C-Space>
 let g:ycm_key_invoke_completion = '<C-a>'
+
+" 设置在下面几种格式的文件上屏蔽ycm
+let g:ycm_filetype_blacklist = {
+      \ 'tagbar' : 1,
+      \ 'nerdtree' : 1,
+      \}
+
+
+" **************************************** snippet ****************************************
+" Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
+
+
+
+
+" If you want :UltiSnipsEdit to split your window.
+let g:UltiSnipsEditSplit="vertical"
 
 " **************************************** NERDTree ****************************************
 map <leader>e :NERDTreeToggle<CR>		" open or close nerdtree
@@ -173,14 +194,15 @@ set cmdheight=1
 " 输入的命令显示出来，看的清楚些
 set showcmd
 
+set foldmethod=manual
 
 """"""""""""""""""""""""""""""""""""""""""""""""""
 " python setting 
 """""""""""""""""""""""""""""""""""""""""""""""
 "let python_highlight_all=1
-"au Filetype python set tabstop=4
-"au Filetype python set softtabstop=4
-"au Filetype python set shiftwidth=4
+au Filetype python set tabstop=4
+au Filetype python set softtabstop=4
+au Filetype python set shiftwidth=4
 "au Filetype python set textwidth=79
 "au Filetype python set expandtab
 "au Filetype python set autoindent
