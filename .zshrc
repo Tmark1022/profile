@@ -69,8 +69,7 @@ ZSH_THEME="agnoster"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(git zsh-syntax-highlighting zsh-autosuggestions svn)
-ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=yellow'
-
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=yellow' 
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
@@ -106,6 +105,12 @@ TZ='Asia/Shanghai'; export TZ
 alias colordiff='awk '\''{if($1 == "@@"){print "\033[1;033;40m"$0" \033[0m"}else if(substr($1,1,1) == "+"){print "\033[1;032;40m"$0" \033[0m"}else if(substr($1,1,1) == "-"){print "\033[1;031;40m"$0" \033[0m"}else{print $0}}'\'''
 
 alias tmux="TERM=screen-256color-bce tmux"
+alias agall='ls | awk '\''{print $0}'\'' | grep -vE  "(tags)|(etc)|(tool)|(rc)" | xargs ag '
+
+
+#ssh-agent, 需要下载.ssh_find_agent.sh脚本
+. ssh-find-agent.sh
+ssh_find_agent -a || eval $(ssh-agent) > /dev/null
 
 # svn plugin setting
 prompt_svn() {
