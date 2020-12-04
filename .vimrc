@@ -33,6 +33,8 @@ Plugin 'vim-scripts/taglist.vim'
 
 Plugin 'SirVer/ultisnips'
 Plugin 'honza/vim-snippets'
+Plugin 'tenfyzhong/CompleteParameter.vim'
+
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -77,7 +79,8 @@ inoremap <expr> <CR>       pumvisible() ? "\<C-y>" : "\<CR>"    "回车即选中
 let g:ycm_key_list_select_completion = ['<Down>']  
 "let g:ycm_key_list_previous_completion=['<c-p>']  
 let g:ycm_key_list_previous_completion = ['<Up>']  
-"let g:ycm_confirm_extra_conf=0 				"关闭加载.ycm_extra_conf.py提示  
+
+let g:ycm_confirm_extra_conf=1				"关闭加载.ycm_extra_conf.py提示  
   
 let g:ycm_collect_identifiers_from_tags_files=1 	" 开启 YCM 基于标签引擎  
 let g:ycm_min_num_of_chars_for_completion=2 		" 从第2个键入字符就开始罗列匹配项  
@@ -108,6 +111,22 @@ let g:ycm_filetype_blacklist = {
       \ 'nerdtree' : 1,
       \}
 
+let g:ycm_semantic_triggers =  {
+            \   'c' : ['->', '.','re![_a-zA-z0-9]'],
+            \   'objc' : ['->', '.', 're!\[[_a-zA-Z]+\w*\s', 're!^\s*[^\W\d]\w*\s',
+            \             're!\[.*\]\s'],
+            \   'ocaml' : ['.', '#'],
+            \   'cpp,objcpp' : ['->', '.', '::','re![_a-zA-Z0-9]'],
+            \   'perl' : ['->'],
+            \   'php' : ['->', '::'],
+            \   'cs,java,javascript,typescript,d,python,perl6,scala,vb,elixir,go' : ['.'],
+            \   'ruby' : ['.', '::'],
+            \   'lua' : ['.', ':'],
+            \   'erlang' : [':'],
+            \ }
+
+let g:ycm_error_symbol = '✗'
+let g:ycm_warning_symbol = '✹'
 
 " **************************************** snippet ****************************************
 " Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
@@ -144,6 +163,21 @@ let Tlist_Exit_OnlyWindow=1   "如果taglist窗口是最后一个窗口，则退
 let Tlist_Use_Right_Window=1	"taglist窗口在右侧
 let Tlist_Close_On_Select=1	"选择完窗口后关闭taglist窗口
 let Tlist_GainFocus_On_ToggleOpen=1	"输入焦点在新打开的窗口
+
+" **************************************** taglist ****************************************
+let g:leetcode_china=1
+let g:leetcode_browser='chrome'
+let g:leetcode_username='15626476229'
+let g:leetcode_password='leetcode15626476229'
+
+
+" **************************************** complete parameter ****************************************
+inoremap <silent><expr> ( complete_parameter#pre_complete("()")
+smap <c-j> <Plug>(complete_parameter#goto_next_parameter)
+imap <c-j> <Plug>(complete_parameter#goto_next_parameter)
+smap <c-k> <Plug>(complete_parameter#goto_previous_parameter)
+imap <c-k> <Plug>(complete_parameter#goto_previous_parameter)
+
 
 " ############################# vundle plugin config end #######################################
 
@@ -240,15 +274,20 @@ func! SetHeader()
                 call setline(5, "\ @ Description	: ")
                 call setline(6, " ************************************************************************/")
 		call setline(7,"#include <iostream>") 
-		call setline(8, "")
-		call setline(9, "using std::cin;") 
-		call setline(10, "using std::cout;") 
-		call setline(11, "using std::endl;") 
-		call setline(12, "")
-		call setline(13, "int main(int argc, char *argv[]) {") 
-		call setline(14, "")
-		call setline(15, "	return 0;")
-		call setline(16, "}")
+		call setline(8,"#include <vector>") 
+		call setline(9,"#include <string>") 
+		call setline(10,"#include <algorithm>") 
+		call setline(11, "")
+		call setline(12, "using std::cin;") 
+		call setline(13, "using std::cout;") 
+		call setline(14, "using std::endl;") 
+		call setline(15, "using std::vector;") 
+		call setline(16, "using std::string;") 
+		call setline(17, "")
+		call setline(18, "int main(int argc, char *argv[]) {") 
+		call setline(19, "")
+		call setline(20, "	return 0;")
+		call setline(21, "}")
 	elseif expand("%:e") == 'cc' 
 		call setline(1,"#include <iostream>") 
 		call setline(2, "")
@@ -313,5 +352,12 @@ func! CompileRunGcc()
     "    exec "!firefox %.html &"
     endif
 endfunc
+
+
+"""""""""""""""""""""""""
+" something else
+""""""""""""""""""""""""
+
+
 
 
