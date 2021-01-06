@@ -33,7 +33,6 @@ Plugin 'vim-scripts/taglist.vim'
 
 Plugin 'SirVer/ultisnips'
 Plugin 'honza/vim-snippets'
-Plugin 'tenfyzhong/CompleteParameter.vim'
 
 
 " All of your Plugins must be added before the following line
@@ -60,7 +59,6 @@ filetype plugin indent on    " required
 " **************************************** YouCompleteMe ****************************************
 " 全局配置 
 "let g:ycm_global_ycm_extra_conf = '~/.vim/ycmConfig/.ycm_extra_conf_global.py'
-
 
 
 " 自动补全配置  
@@ -100,6 +98,7 @@ let g:ycm_complete_in_strings = 1
 let g:ycm_collect_identifiers_from_comments_and_strings = 0  
 let g:clang_user_options='|| exit 0'  
 nnoremap <leader>jd :YcmCompleter GoToDefinitionElseDeclaration<CR> " 跳转到定义处  
+let g:ycm_always_populate_location_list = 1
 "let g:ycm_show_diagnostics_ui = 0	" lpc代码编写， 默认关闭代码诊断ui	
 
 " 手动调用补全, 默认<C-Space>
@@ -111,12 +110,18 @@ let g:ycm_filetype_blacklist = {
       \ 'nerdtree' : 1,
       \}
 
+"let g:ycm_python_interpreter_path = '/usr/bin/python'
+let g:ycm_path_to_python_interpreter='/usr/bin/python3'
+
+
+"'c' : ['->', '.','re![_a-zA-Z0-9]'],
+"'cpp,objcpp' : ['->', '.', '::','re![_a-zA-Z0-9]'],
 let g:ycm_semantic_triggers =  {
-            \   'c' : ['->', '.','re![_a-zA-z0-9]'],
+            \   'c' : ['->', '.','re![_0-9]'],
+	    \	'cpp,objcpp' : ['->', '.', '::','re![_0-9]'],
             \   'objc' : ['->', '.', 're!\[[_a-zA-Z]+\w*\s', 're!^\s*[^\W\d]\w*\s',
             \             're!\[.*\]\s'],
             \   'ocaml' : ['.', '#'],
-            \   'cpp,objcpp' : ['->', '.', '::','re![_a-zA-Z0-9]'],
             \   'perl' : ['->'],
             \   'php' : ['->', '::'],
             \   'cs,java,javascript,typescript,d,python,perl6,scala,vb,elixir,go' : ['.'],
@@ -127,6 +132,7 @@ let g:ycm_semantic_triggers =  {
 
 let g:ycm_error_symbol = '✗'
 let g:ycm_warning_symbol = '✹'
+
 
 " **************************************** snippet ****************************************
 " Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
@@ -165,19 +171,6 @@ let Tlist_Close_On_Select=1	"选择完窗口后关闭taglist窗口
 let Tlist_GainFocus_On_ToggleOpen=1	"输入焦点在新打开的窗口
 
 " **************************************** taglist ****************************************
-let g:leetcode_china=1
-let g:leetcode_browser='chrome'
-let g:leetcode_username='15626476229'
-let g:leetcode_password='leetcode15626476229'
-
-
-" **************************************** complete parameter ****************************************
-inoremap <silent><expr> ( complete_parameter#pre_complete("()")
-smap <c-j> <Plug>(complete_parameter#goto_next_parameter)
-imap <c-j> <Plug>(complete_parameter#goto_next_parameter)
-smap <c-k> <Plug>(complete_parameter#goto_previous_parameter)
-imap <c-k> <Plug>(complete_parameter#goto_previous_parameter)
-
 
 " ############################# vundle plugin config end #######################################
 
@@ -212,6 +205,7 @@ set incsearch
 hi Search term=standout ctermfg=0 ctermbg=3 guifg=Black guibg=Yellow	
 " 高亮menu
 highlight PMenu ctermfg=0 ctermbg=242 guifg=black guibg=darkgrey
+hi YCMInverse term=bold cterm=NONE ctermbg=30 gui=NONE
 
 " 显示光标位置
 set ruler
@@ -277,12 +271,12 @@ func! SetHeader()
 		call setline(8,"#include <vector>") 
 		call setline(9,"#include <string>") 
 		call setline(10,"#include <algorithm>") 
-		call setline(11, "")
-		call setline(12, "using std::cin;") 
-		call setline(13, "using std::cout;") 
-		call setline(14, "using std::endl;") 
-		call setline(15, "using std::vector;") 
-		call setline(16, "using std::string;") 
+		call setline(11, "#include <climits>")
+		call setline(12, "#include <deque>") 
+		call setline(13, "#include <unordered_map>") 
+		call setline(14, "#include <unordered_set>") 
+		call setline(15, "") 
+		call setline(16, "using namespace std;") 
 		call setline(17, "")
 		call setline(18, "int main(int argc, char *argv[]) {") 
 		call setline(19, "")
