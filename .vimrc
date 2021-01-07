@@ -33,6 +33,7 @@ Plugin 'vim-scripts/taglist.vim'
 
 Plugin 'SirVer/ultisnips'
 Plugin 'honza/vim-snippets'
+Plugin 'jiangmiao/auto-pairs'
 
 
 " All of your Plugins must be added before the following line
@@ -170,7 +171,9 @@ let Tlist_Use_Right_Window=1	"taglist窗口在右侧
 let Tlist_Close_On_Select=1	"选择完窗口后关闭taglist窗口
 let Tlist_GainFocus_On_ToggleOpen=1	"输入焦点在新打开的窗口
 
-" **************************************** taglist ****************************************
+" **************************************** auto-pairs ****************************************
+let g:AutoPairs = {'(':')', '[':']', '{':'}',"'":"'",'"':'"', "`":"`", '```':'```', '"""':'"""', "'''":"'''", '<':'>'}
+
 
 " ############################# vundle plugin config end #######################################
 
@@ -205,7 +208,7 @@ set incsearch
 hi Search term=standout ctermfg=0 ctermbg=3 guifg=Black guibg=Yellow	
 " 高亮menu
 highlight PMenu ctermfg=0 ctermbg=242 guifg=black guibg=darkgrey
-hi YCMInverse term=bold cterm=NONE ctermbg=30 gui=NONE
+hi YCMInverse term=bold cterm=NONE ctermfg=0 ctermbg=30 gui=NONE
 
 " 显示光标位置
 set ruler
