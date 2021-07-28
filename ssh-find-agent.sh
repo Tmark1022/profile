@@ -218,9 +218,7 @@ ssh_find_agent() {
 		return $?
 	elif [[ "$1" = "-a" ]] || [[ "$1" = "--auto" ]]
 	then
-		set -x
 		set_ssh_agent_socket
-		set +x
 		return $?
 	else
 		find_all_agent_sockets -i
