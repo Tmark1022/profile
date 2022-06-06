@@ -34,6 +34,9 @@ Plugin 'vim-scripts/taglist.vim'
 Plugin 'SirVer/ultisnips'
 Plugin 'honza/vim-snippets'
 Plugin 'jiangmiao/auto-pairs'
+Plugin 'rdnetto/YCM-Generator'
+Plugin 'davidhalter/jedi'
+Plugin 'dense-analysis/ale'
 
 
 " All of your Plugins must be added before the following line
@@ -59,7 +62,7 @@ filetype plugin indent on    " required
 
 " **************************************** YouCompleteMe ****************************************
 " 全局配置 
-"let g:ycm_global_ycm_extra_conf = '~/.vim/ycmConfig/.ycm_extra_conf_global.py'
+let g:ycm_global_ycm_extra_conf = '~/.vim/ycmConfig/.ycm_extra_conf_global.py'
 
 
 " 自动补全配置  
@@ -99,8 +102,16 @@ let g:ycm_complete_in_strings = 1
 let g:ycm_collect_identifiers_from_comments_and_strings = 0  
 let g:clang_user_options='|| exit 0'  
 nnoremap <leader>jd :YcmCompleter GoToDefinitionElseDeclaration<CR> " 跳转到定义处  
+nnoremap <leader>gd :YcmCompleter GetDoc<CR> " 跳转到有关的快速信息出
 let g:ycm_always_populate_location_list = 1
+
+
 "let g:ycm_show_diagnostics_ui = 0	" lpc代码编写， 默认关闭代码诊断ui	
+
+" 停止ycmd语法检查 
+"let g:ycm_enable_diagnostic_highlighting = 0
+"let g:ycm_show_diagnostics_ui = 0
+"let g:ycm_enable_diagnostic_signs = 0
 
 " 手动调用补全, 默认<C-Space>
 let g:ycm_key_invoke_completion = '<C-a>'
@@ -130,6 +141,7 @@ let g:ycm_semantic_triggers =  {
             \   'lua' : ['.', ':'],
             \   'erlang' : [':'],
             \ }
+
 
 let g:ycm_error_symbol = '✗'
 let g:ycm_warning_symbol = '✹'
@@ -172,8 +184,20 @@ let Tlist_Close_On_Select=1	"选择完窗口后关闭taglist窗口
 let Tlist_GainFocus_On_ToggleOpen=1	"输入焦点在新打开的窗口
 
 " **************************************** auto-pairs ****************************************
-let g:AutoPairs = {'(':')', '[':']', '{':'}',"'":"'",'"':'"', "`":"`", '```':'```', '"""':'"""', "'''":"'''", '<':'>'}
+"let g:AutoPairs = {'(':')', '[':']', '{':'}',"'":"'",'"':'"', "`":"`", '```':'```', '"""':'"""', "'''":"'''", '<':'>'}
 
+
+
+" **************************************** ale	****************************************
+let g:ale_linters = {
+      \ 'python': ['flake8', 'pylint'],
+	  \ }
+
+" 默认关闭ale linting 功能（避免编写其他代码如C时，ale覆盖了ycm）， 需要开启可以使用:ALEToggle指令， 详情可以 :h ale 进行查询
+let g:ale_enabled = 0
+
+let g:ale_sign_error = '☢️'
+let g:ale_sign_warning = '⚠️'
 
 " ############################# vundle plugin config end #######################################
 
@@ -193,9 +217,12 @@ colorscheme desert
 " 在处理未保存或只读文件的时候，弹出确认
  set confirm
 " 设置tab缩进
-set softtabstop=8
-set tabstop=8
-set shiftwidth=8
+" set softtabstop=8
+" set tabstop=8
+" set shiftwidth=8
+set softtabstop=4
+set tabstop=4
+set shiftwidth=4
 
 " 高亮显示关键字
 syntax on
@@ -260,7 +287,7 @@ func! SetHeader()
                 call setline(4, "\#	> Author	: tmark")
                 call setline(5, "\#	> Created Time	: ".strftime("%c"))
                 call setline(6, "\#	> File Name	: ".expand("%"))
-                call setline(7, "\#	> Description	: ")
+                call setline(7, "\#	> Description	:")
                 call setline(8, "\"\"\"")
                 call setline(9,"")
 	elseif expand("%:e") == 'cpp' 
@@ -338,7 +365,7 @@ func! CompileRunGcc()
     elseif &filetype == 'sh'
         :!time bash %
     elseif &filetype == 'python'
-        exec "!time python3 %"
+        exec "!time python %"
     "elseif &filetype == 'html'
     "    exec "!firefox % &"
     "elseif &filetype == 'go'
