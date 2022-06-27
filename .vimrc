@@ -37,6 +37,9 @@ Plugin 'jiangmiao/auto-pairs'
 Plugin 'rdnetto/YCM-Generator'
 Plugin 'davidhalter/jedi'
 Plugin 'dense-analysis/ale'
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
+Plugin 'kien/rainbow_parentheses.vim'
 
 
 " All of your Plugins must be added before the following line
@@ -82,7 +85,7 @@ let g:ycm_key_list_select_completion = ['<Down>']
 "let g:ycm_key_list_previous_completion=['<c-p>']  
 let g:ycm_key_list_previous_completion = ['<Up>']  
 
-let g:ycm_confirm_extra_conf=1				"关闭加载.ycm_extra_conf.py提示  
+let g:ycm_confirm_extra_conf=0				"关闭加载.ycm_extra_conf.py提示  
   
 let g:ycm_collect_identifiers_from_tags_files=1 	" 开启 YCM 基于标签引擎  
 let g:ycm_min_num_of_chars_for_completion=2 		" 从第2个键入字符就开始罗列匹配项  
@@ -130,7 +133,7 @@ let g:ycm_path_to_python_interpreter='/usr/bin/python3'
 "'cpp,objcpp' : ['->', '.', '::','re![_a-zA-Z0-9]'],
 let g:ycm_semantic_triggers =  {
             \   'c' : ['->', '.','re![_0-9]'],
-	    \	'cpp,objcpp' : ['->', '.', '::','re![_0-9]'],
+			\	'cpp,objcpp' : ['->', '.', '::','re![_0-9]'],
             \   'objc' : ['->', '.', 're!\[[_a-zA-Z]+\w*\s', 're!^\s*[^\W\d]\w*\s',
             \             're!\[.*\]\s'],
             \   'ocaml' : ['.', '#'],
@@ -189,15 +192,48 @@ let Tlist_GainFocus_On_ToggleOpen=1	"输入焦点在新打开的窗口
 
 
 " **************************************** ale	****************************************
+" comment pylint
 let g:ale_linters = {
-      \ 'python': ['flake8', 'pylint'],
-	  \ }
+		\ 'python': ['flake8'],
+		\ }
 
 " 默认关闭ale linting 功能（避免编写其他代码如C时，ale覆盖了ycm）， 需要开启可以使用:ALEToggle指令， 详情可以 :h ale 进行查询
 let g:ale_enabled = 0
 
 let g:ale_sign_error = '☢️'
 let g:ale_sign_warning = '⚠️'
+
+" **************************************** vim airline	****************************************
+let g:airline#extensions#tabline#enabled = 1
+let g:airline_powerline_fonts = 1   " 使用powerline打过补丁的字体
+
+" **************************************** rainbow parentheses	****************************************
+" let g:rbpt_colorpairs = [
+    \ ['brown',       'RoyalBlue3'],
+    \ ['Darkblue',    'SeaGreen3'],
+    \ ['darkgray',    'DarkOrchid3'],
+    \ ['darkgreen',   'firebrick3'],
+    \ ['darkcyan',    'RoyalBlue3'],
+    \ ['darkred',     'SeaGreen3'],
+    \ ['darkmagenta', 'DarkOrchid3'],
+    \ ['brown',       'firebrick3'],
+    \ ['gray',        'RoyalBlue3'],
+    \ ['black',       'SeaGreen3'],
+    \ ['darkmagenta', 'DarkOrchid3'],
+    \ ['Darkblue',    'firebrick3'],
+    \ ['darkgreen',   'RoyalBlue3'],
+    \ ['darkcyan',    'SeaGreen3'],
+    \ ['darkred',     'DarkOrchid3'],
+    \ ['red',         'firebrick3'],
+    \ ]
+let g:rbpt_max = 16
+let g:rbpt_loadcmd_toggle = 0
+
+au VimEnter * RainbowParenthesesToggle			" Toggle it on/off
+au VimEnter * RainbowParenthesesLoadRound		" (), the default when toggling
+au VimEnter * RainbowParenthesesLoadSquare		" []
+au VimEnter * RainbowParenthesesLoadBraces		" {}
+" au VimEnter * RainbowParenthesesLoadChevrons	" <>   
 
 " ############################# vundle plugin config end #######################################
 
