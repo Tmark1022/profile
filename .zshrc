@@ -106,10 +106,11 @@ alias colordiff='awk '\''{if($1 == "@@"){print "\033[1;033;40m"$0" \033[0m"}else
 
 alias tmux="TERM=screen-256color-bce tmux"
 alias agall='ls | awk '\''{print $0}'\'' | grep -vE  "(tags)|(etc)|(tool)|(rc)" | xargs ag '
+alias lf='/home/tmark/code/sh/shell-script/util/lazy_find.sh'
 
 
 #ssh-agent, 需要下载.ssh_find_agent.sh脚本
-. ssh-find-agent.sh
+. /home/tmark/Resource/profile/ssh-find-agent.sh
 ssh_find_agent -a || eval $(ssh-agent) > /dev/null
 
 # svn plugin setting
@@ -138,3 +139,8 @@ build_prompt() {
     prompt_svn
     prompt_end
 }
+
+real_host_ip=192.168.12.39
+alias setproxy="export all_proxy=http://$real_host_ip:7890;export http_proxy=http://$real_host_ip:7890;export https_proxy=http://$real_host_ip:7890;"
+alias unsetproxy="unset all_proxy;unset http_proxy;unset https_proxy;"
+
